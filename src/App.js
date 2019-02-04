@@ -23,6 +23,7 @@ class App extends Component {
             }
         }
 
+        // New Drone object - requires a member object under data
         this.drone = new window.Scaledrone(CHANNEL_ID, {
             data: this.state.member
         });
@@ -32,30 +33,33 @@ class App extends Component {
             return console.error(error);
         }
 
-        console.log('Connected to Scaledrone')
+        // observable-room allows for "who's online feature"
         const room = this.drone.subscribe('observable-room');
+
         room.on('open', error => {
             if (error) {
                 return console.error(error);
             }
+            // Give current member a unique ID
             const member = {...this.state.member};
             member.id = this.drone.clientId;
             this.setState({member});
         });
 
+        // Called upon loading the chatroom for the first time
         room.on('members', m => {
             this.setState({ members: m })
-            //this.updateMembersDOM();
         });
 
+        // Called when a member joins the chatroom -- updates members list
         room.on('member_join', member => {
             console.log("Member joined: " + member.clientData.username);
             const members = this.state.members;
             members.push({member})
             this.setState({members})
-            //this.updateMembersDOM();
         });
 
+        // Called when a member leaves the chatroom -- updates members list
         room.on('member_leave', ({id}) => {
             const index = this.state.members.findIndex(member => member.id === id);
             const members = this.state.members;
@@ -63,6 +67,7 @@ class App extends Component {
             this.setState({members})
         });
 
+        // Called upon data being published to the room -- updates messages list
         room.on('data', (data, member) => {
             const messages = this.state.messages;
             messages.push({member, text: data});
@@ -92,7 +97,8 @@ class App extends Component {
         </div>
         );
   }
-
+    // What happens upon pressing 'send'
+    // This gets passed as a prop to the Input component
     onSendMessage = (message) => {
     this.drone.publish({
       room: "observable-room",

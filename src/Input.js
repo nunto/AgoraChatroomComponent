@@ -10,6 +10,7 @@ class Input extends Component {
     this.setState({text: e.target.value});
   }
 
+  // Sends to the onSendMessage function back in App
   onSubmit(e) {
     e.preventDefault();
     this.setState({text: ""});

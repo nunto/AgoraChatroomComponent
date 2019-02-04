@@ -2,21 +2,23 @@ import React, {Component} from "react";
 
 class Messages extends Component {
   
+  // Element used to enable auto-scrolling
   msgsBottom = React.createRef();
 
-    componentDidMount() {
-        this.scrollToBottom();
-    }
+  componentDidMount() {
+    this.scrollToBottom();
+  }
 
-    componentDidUpdate() {
-        this.scrollToBottom();
-    }
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
 
-    scrollToBottom() {
-        this.msgsBottom.current.scrollIntoView({ behavior: "smooth" });
-    }
-    
-  
+  // Scrolls to msgsBottom element
+  scrollToBottom() {
+    this.msgsBottom.current.scrollIntoView({ behavior: "smooth" });
+  }
+
+  // Renders the list of messages
   render() {
     const {messages} = this.props;
     return (
@@ -28,6 +30,7 @@ class Messages extends Component {
     );
   }
 
+  // Renders a single message object and returns formatted message to display
   renderMessage(message) {
     const {member, text} = message;
     const {currentMember} = this.props;
