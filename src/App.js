@@ -71,22 +71,7 @@ class App extends Component {
         })
     }
 
-    msgsBottom = React.createRef();
-
-    componentDidMount() {
-        this.scrollToBottom();
-    }
-
-    componentDidUpdate() {
-        this.scrollToBottom();
-    }
-
-    scrollToBottom() {
-        this.msgsBottom.current.scrollIntoView({ behavior: "smooth" });
-    }
-
     render() {
-        console.log(this.state.member.id)
         return (
         <div className="App">
             <div className="App-header">
@@ -104,8 +89,6 @@ class App extends Component {
             <Input
             onSendMessage={this.onSendMessage}
             />
-            <div ref={this.msgsBottom}>
-            </div>
         </div>
         );
   }
