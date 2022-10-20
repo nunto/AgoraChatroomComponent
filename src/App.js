@@ -5,7 +5,7 @@ import Input from './Input';
 import './App.css';
 
 
-const CHANNEL_ID = '2nRjKbOw2T5K0453';
+const CHANNEL_ID = 'CHANNEL_ID_FROM_ENV_HERE';
 
 function randomColor() {
   return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
